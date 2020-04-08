@@ -67,7 +67,7 @@ object Utils {
         if (lastName?.trim().isNullOrEmpty()) {
             return firstChar?.toUpperCase(Locale.getDefault())
         } else {
-            secondChar = lastName?.get(0).toString()
+            secondChar = lastName?.get(1).toString()
             return (firstChar + secondChar).toUpperCase()
         }
     }

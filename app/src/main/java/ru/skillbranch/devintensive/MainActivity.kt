@@ -10,9 +10,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        println(Utils.parseFullName(null))
-        println(Utils.parseFullName(""))
-        println(Utils.parseFullName(" "))
-        println(Utils.parseFullName("Hello"))
     }
 }

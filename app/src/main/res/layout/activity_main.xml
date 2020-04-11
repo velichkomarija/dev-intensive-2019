@@ -51,6 +51,8 @@
             android:tint="@android:color/white"
             android:layout_width="@dimen/button_dimension"
             android:layout_height="@dimen/button_dimension"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"
             android:src="@drawable/ic_send" />
 
     </LinearLayout>

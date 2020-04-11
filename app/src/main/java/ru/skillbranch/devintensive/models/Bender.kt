@@ -58,7 +58,7 @@ class Bender(var status: Status = Status.NORMAL,
             Pair<String, Triple<Int, Int, Int>> {
         return if (question.answers.contains(answer)) {
             question = question.nextQuestion()
-            "Отлично - ты справился.\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
             retries++

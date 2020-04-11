@@ -122,7 +122,6 @@ class Bender(var status: Status = Status.NORMAL,
                 "Это неправильный ответ\n${question.question}" to status.color
             }
         }
-
     }
 
 }

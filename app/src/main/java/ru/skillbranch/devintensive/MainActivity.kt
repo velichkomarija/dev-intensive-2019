@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -37,24 +36,21 @@ class MainActivity : AppCompatActivity(),
 
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
+        val retries = savedInstanceState?.getInt("RETRIES") ?: 0
         benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
+        benderObj.retries = retries
 
         val (r, g, b) = benderObj.status.color
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
 
         textTxt.text = benderObj.askQuestion()
 
-        messageEt.setOnEditorActionListener(object : TextView.OnEditorActionListener
-        {
-            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean
-            {
-                if (p1 == EditorInfo.IME_ACTION_DONE && p0 != null)
-                    changeBenderState()
+        messageEt.setOnEditorActionListener { p0, p1, p2 ->
+            if (p1 == EditorInfo.IME_ACTION_DONE && p0 != null)
+                changeBenderState()
 
-                return true
-            }
-
-        })
+            true
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -62,6 +58,7 @@ class MainActivity : AppCompatActivity(),
 
         outState.putString("STATUS", benderObj.status.name)
         outState.putString("QUESTION", benderObj.question.name)
+        outState.putInt("RETRIES", benderObj.retries)
     }
 
     @SuppressLint("DefaultLocale")

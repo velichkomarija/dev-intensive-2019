@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -41,6 +43,18 @@ class MainActivity : AppCompatActivity(),
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
 
         textTxt.text = benderObj.askQuestion()
+
+        messageEt.setOnEditorActionListener(object : TextView.OnEditorActionListener
+        {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean
+            {
+                if (p1 == EditorInfo.IME_ACTION_DONE && p0 != null)
+                    changeBenderState()
+
+                return true
+            }
+
+        })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -52,12 +66,16 @@ class MainActivity : AppCompatActivity(),
 
     @SuppressLint("DefaultLocale")
     override fun onClick(view: View?) {
-        if (view?.id == R.id.iv_send) {
-            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
-            textTxt.text = phrase
+      changeBenderState()
+    }
 
-            val (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-        }
+    private fun changeBenderState() {
+        val (phrase, color) =
+                benderObj.listenAnswer(
+                        messageEt.text.toString())
+
+        val (r, g, b) = color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
+        textTxt.text = phrase
     }
 }

@@ -6,6 +6,17 @@
     android:orientation="vertical"
     android:visibility="visible"
     tools:context=".MainActivity">
+    
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Hello World!"
+        android:textAlignment="center"
+        android:textSize="@dimen/font_large"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/iv_bender"

@@ -67,6 +67,9 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun changeBenderState() {
+        if (messageEt.text.toString().isNullOrBlank())
+            return
+
         val (phrase, color) =
                 benderObj.listenAnswer(
                         messageEt.text.toString())

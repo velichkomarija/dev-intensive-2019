@@ -56,7 +56,7 @@
 
 
             <TextView
-                android:id="@+id/iv_name"
+                android:id="@+id/tv_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_avatar"
@@ -66,10 +66,10 @@
                 style="@style/Profile.Header.Nickname"/>
 
             <TextView
-                android:id="@+id/iv_rank"
+                android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_name"
+                android:layout_below="@id/tv_nick_name"
                 android:layout_centerHorizontal="true"
                 android:text="Junior Android Developer"
                 style="@style/Profile.Header.Rank"/>
@@ -100,6 +100,7 @@
                 style="@style/Profile.Metrics.Value" />
 
             <TextView
+                android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_label_rating"
@@ -129,6 +130,7 @@
                 style="@style/Profile.Metrics.Value" />
 
             <TextView
+                android:id="@+id/tv_respect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_label_respect"

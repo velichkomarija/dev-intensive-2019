@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:id="@+id/nested_scroll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/profile_bg"
@@ -38,7 +43,7 @@
             app:layout_constraintTop_toTopOf="@+id/iv_avatar"
             app:srcCompat="@drawable/ic_switch_day_night" />
 
-        <ImageView
+        <ru.skillbranch.devintensive.ui.custom.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/avatar_round_size"
             android:layout_height="@dimen/avatar_round_size"
@@ -47,7 +52,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_bg"
-            android:src="@drawable/avatar_default"/>
+            android:src="@drawable/avatar_default" />
 
         <TextView
             android:id="@+id/tv_nick_name"
@@ -298,3 +303,4 @@
             app:srcCompat="@drawable/ic_eye_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,6 +1,8 @@
 package ru.skillbranch.devintensive.utils
 
-import java.util.*
+import android.content.Context
+import android.util.TypedValue
+import ru.skillbranch.devintensive.R
 
 object Utils {
 
@@ -55,21 +57,10 @@ object Utils {
 
     fun toInitials(firstName: String?, lastName: String?): String? {
 
-        var firstChar: String? = null
-        var secondChar: String? = null
+        val firstLetter = firstName?.trim()?.firstOrNull()?.toUpperCase() ?: ""
+        val secondLetter = lastName?.trim()?.firstOrNull()?.toUpperCase() ?: ""
 
-        if (firstName?.trim().isNullOrEmpty()) {
-            return null
-        } else {
-            firstChar = firstName?.get(0).toString()
-        }
-
-        if (lastName?.trim().isNullOrEmpty()) {
-            return firstChar?.toUpperCase(Locale.getDefault())
-        } else {
-            secondChar = lastName?.get(1).toString()
-            return (firstChar + secondChar).toUpperCase()
-        }
+        return "$firstLetter$secondLetter".ifEmpty { null }
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
@@ -82,6 +73,13 @@ object Utils {
                 else -> it
             }
         }
+
         return nickname
+    }
+
+    fun getThemeAccentColor(context: Context): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        return value.data
     }
 }

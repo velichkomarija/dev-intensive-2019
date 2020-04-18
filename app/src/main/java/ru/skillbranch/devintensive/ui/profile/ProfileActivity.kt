@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -43,10 +45,10 @@ class ProfileActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         viewModel.getProfileData().observe(this, Observer { updateUI(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
-    }
+        viewModel.isRepoValid().observe(this, Observer { checkValidationError(it) })    }
 
-    private fun updateTheme(mode: Int?) {
-        delegate.localNightMode = mode!!
+    private fun updateTheme(mode: Int) {
+        delegate.setLocalNightMode(mode)
     }
 
     private fun updateUI(profile: Profile) {
@@ -54,7 +56,9 @@ class ProfileActivity : AppCompatActivity() {
             for ((k, v) in viewFields) {
                 v.text = it[k].toString()
             }
+            setDefaultAvatar(it["initials"].toString())
         }
+
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -78,9 +82,29 @@ class ProfileActivity : AppCompatActivity() {
             showCurrentMode(isEditMode)
         }
 
-        btn_switch_theme.setOnClickListener(View.OnClickListener {
+        btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
+        }
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
+                viewModel.repositoryValidation(text.toString())
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+    }
+
+    private fun checkValidationError(isValidate: Boolean) {
+        if (isValidate) {
+            wr_repository.error = null
+            wr_repository.isErrorEnabled = false
+            nested_scroll.scrollY = et_repository.bottom
+        } else {
+            wr_repository.error = "Невалидный адрес репозитория"
+            nested_scroll.scrollY = wr_repository.bottom
+            et_repository.requestFocus()
+        }
     }
 
     private fun showCurrentMode(isEditMode: Boolean) {
@@ -132,6 +156,10 @@ class ProfileActivity : AppCompatActivity() {
         ).apply {
             viewModel.saveProfileData(this)
         }
+    }
+
+    private fun setDefaultAvatar(initials: String) {
+        iv_avatar.setImageBitmap(iv_avatar.drawDefaultAvatar(initials))
     }
 
 }

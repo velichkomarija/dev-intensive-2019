@@ -8,4 +8,5 @@
     <string name="profile_hint_first_name">Имя</string>
     <string name="bg">Фон</string>
     <string name="rate">Рейтинг</string>
+    <string name="search">Поиск</string>
 </resources>

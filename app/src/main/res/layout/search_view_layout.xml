@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.SearchView
-    android:id="@+id/search_view"
+<androidx.appcompat.widget.SearchView android:id="@+id/search_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:inputType="textPersonName"
     android:maxWidth="999dp"
     android:layout_height="wrap_content">
-
 </androidx.appcompat.widget.SearchView>

@@ -1,16 +1,23 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+        <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">
+            <item name="android:textColor">@color/color_green</item>
+            <item name="android:textSize">14sp</item>
+        </style>
+
+        <style name="SnackbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+            <item name="android:textColor">@color/color_green</item>
+        </style>
 
     <style name="ActivityTransitions" parent="android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/bottom_up</item>
         <item name="android:activityOpenExitAnimation">@anim/idle</item>
         <item name="android:activityCloseEnterAnimation">@anim/idle</item>
-        <item name="android:activityCloseExitAnimation">@anim/idle</item>
+        <item name="android:activityCloseExitAnimation">@anim/bottom_down</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
-
     <style name="Profile">
+
     </style>
 
     <style name="Profile.EditText" parent="Profile">
@@ -65,4 +72,5 @@
         <item name="android:paddingRight">@dimen/spacing_normal_16</item>
         <item name="android:minHeight">72dp</item>
     </style>
+
 </resources>

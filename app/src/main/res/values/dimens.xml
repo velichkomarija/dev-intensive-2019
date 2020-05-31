@@ -21,4 +21,5 @@
     <dimen name="counter_size">20dp</dimen>
     <dimen name="indicator_size">12dp</dimen>
     <dimen name="icon_size">24dp</dimen>
+    <dimen name="font_smallest_10">10dp</dimen>
 </resources>

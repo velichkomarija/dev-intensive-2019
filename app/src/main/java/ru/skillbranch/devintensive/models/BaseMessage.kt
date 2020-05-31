@@ -5,7 +5,7 @@ import ru.skillbranch.devintensive.models.data.User
 import java.util.*
 
 /**
- * Created by Makweb on 24.06.2019.
+ * Метод, описывающий сущность сообщения.
  */
 abstract class BaseMessage(
         val id: String,

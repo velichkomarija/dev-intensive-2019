@@ -1,5 +1,8 @@
 package ru.skillbranch.devintensive.models
 
+/**
+ * Метод, описывающий представление пользователя.
+ */
 class UserView(
         val id: String,
         val fullName: String?,

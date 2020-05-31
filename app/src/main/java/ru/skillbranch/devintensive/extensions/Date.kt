@@ -3,30 +3,49 @@ package ru.skillbranch.devintensive.extensions
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Расширения для даты.
+ */
+
 const val SECONDS = 1000L
 const val MINUTES = 60 * SECONDS
 const val HOUR = 60 * MINUTES
 const val DAY = 24 * HOUR
 
-fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
+/**
+ * Метод форматирования даты в нужном формате.
+ * Формат "HH:mm:ss dd.MM.yy" задан по умолчанию.
+ */
+fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"):
+        String {
     val simpleDateFormat = SimpleDateFormat(pattern, Locale("ru"))
     return simpleDateFormat.format(this)
 }
 
-fun Date.shortFormat() : String?{
-    val pattern = if(this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+/**
+ * Метод, вовзращающий короткий формат даты.
+ */
+fun Date.shortFormat(): String? {
+    val pattern = if (this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
     val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
     return dateFormat.format(this)
 }
 
-fun Date.isSameDay(date : Date) : Boolean{
+/**
+ * Метод проверки даты на сегодняшний день.
+ */
+fun Date.isSameDay(date: Date): Boolean {
     val day1 = this.time / DAY
     val day2 = date.time / DAY
 
     return day1 == day2
 }
 
-fun Date.add(value: Int, unit: TimeUnits = TimeUnits.SECOND): Date {
+/**
+ * Метод добавления сдвига к дате.
+ */
+fun Date.add(value: Int, unit: TimeUnits = TimeUnits.SECOND):
+        Date {
     var time = this.time
 
     time += when (unit) {
@@ -40,6 +59,9 @@ fun Date.add(value: Int, unit: TimeUnits = TimeUnits.SECOND): Date {
     return this
 }
 
+/**
+ * Метод, приводящий дату к человекочитаемому виду.
+ */
 fun Date.humanizeDiff(date: Date = Date()): String {
     var difference = date.time - this.time
 
@@ -90,7 +112,12 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     }
 }
 
-enum class TimeUnits(val ONE: String, val FEW: String, val MANY: String) {
+/**
+ * Перечисление размерностей времени.
+ */
+enum class TimeUnits(val ONE: String,
+                     val FEW: String,
+                     val MANY: String) {
 
     SECOND("секунду", "секунды", "секунд"),
     MINUTE("минуту", "минуты", "минут"),
@@ -101,6 +128,9 @@ enum class TimeUnits(val ONE: String, val FEW: String, val MANY: String) {
         return "$num ${this.getAmount(num)}"
     }
 
+    /**
+     * Метод возвращает человекочистаемое представление даты.
+     */
     private fun getAmount(num: Int): String {
         return when {
             num in 5..20 -> MANY

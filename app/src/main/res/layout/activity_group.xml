@@ -36,7 +36,7 @@
             android:layout_marginBottom="@dimen/spacing_small_8"
             android:paddingLeft="@dimen/spacing_normal_16"
             android:paddingRight="@dimen/spacing_normal_16"
-            android:visibility="gone"></com.google.android.material.chip.ChipGroup>
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_user_list"
@@ -56,6 +56,7 @@
         android:scaleX="0"
         android:scaleY="0"
         android:visibility="invisible"
+        android:background="@color/color_accent"
         app:srcCompat="@drawable/ic_arrow_forward"
         tools:scaleX="1"
         tools:scaleY="1"

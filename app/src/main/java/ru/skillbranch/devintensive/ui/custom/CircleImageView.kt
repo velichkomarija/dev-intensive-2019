@@ -13,7 +13,7 @@ import ru.skillbranch.devintensive.extensions.toDp
 import ru.skillbranch.devintensive.utils.Utils.getThemeAccentColor
 import kotlin.math.min
 
-class CircleImageView @JvmOverloads constructor(
+open class CircleImageView @JvmOverloads constructor(
         context: Context,
         attributeSet: AttributeSet? = null,
         defStyleAttr: Int = 0
@@ -59,25 +59,6 @@ class CircleImageView @JvmOverloads constructor(
                 circleCenterWithBorder,
                 circleCenter,
                 paint)
-    }
-
-    fun getBorderWidth(): Int = borderWidth.toInt().toDp()
-
-    fun setBorderWidth(widthInDp: Int) {
-        borderWidth = widthInDp.toFloat().dp
-        invalidate()
-    }
-
-    fun setBorderColor(hex: String) {
-        borderColor = Color.parseColor(hex)
-        invalidate()
-    }
-
-    fun getBorderColor(): Int = borderColor
-
-    fun setBorderColor(@ColorRes colorId: Int) {
-        borderColor = ContextCompat.getColor(context, colorId)
-        invalidate()
     }
 
     fun drawDefaultAvatar(initials: String,

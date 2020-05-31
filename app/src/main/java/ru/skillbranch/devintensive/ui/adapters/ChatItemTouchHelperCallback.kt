@@ -12,6 +12,9 @@ import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.utils.Utils
 
+/**
+ * Класс-обработчик свайпа объекта списка.
+ */
 class ChatItemTouchHelperCallback(
         private val adapter: ChatAdapter,
         private val isArchive: Boolean,
@@ -19,9 +22,15 @@ class ChatItemTouchHelperCallback(
 ) : ItemTouchHelper.Callback() {
 
     private val bgRect = RectF()
-    private val bgPaint = Paint().apply { isAntiAlias = true }
     private val iconBounds = Rect()
+    private val bgPaint = Paint()
+            .apply {
+                isAntiAlias = true
+            }
 
+    /**
+     * Реализация базового интерфейса ItemTouchHelper.
+     */
     override fun getMovementFlags(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
@@ -33,6 +42,9 @@ class ChatItemTouchHelperCallback(
         }
     }
 
+    /**
+     * Реализация базового интерфейса ItemTouchHelper.
+     */
     override fun onMove(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder,
@@ -41,22 +53,39 @@ class ChatItemTouchHelperCallback(
         return false
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+    /**
+     * Реализация базового интерфейса ItemTouchHelper.
+     * Обработчик смахивания элемента.
+     */
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
+                          direction: Int) {
         swipeListener.invoke(adapter.items[viewHolder.adapterPosition])
     }
 
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+    /**
+     * Реализация базового интерфейса ItemTouchHelper.
+     * Обработчик смены выбора элемента.
+     */
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?,
+                                   actionState: Int) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && viewHolder is ItemTouchViewHolder) {
             viewHolder.onItemSelected()
         }
         super.onSelectedChanged(viewHolder, actionState)
     }
 
-    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+    /**
+     * Метод очистки списка от элемента.
+     */
+    override fun clearView(recyclerView: RecyclerView,
+                           viewHolder: RecyclerView.ViewHolder) {
         if (viewHolder is ItemTouchViewHolder) viewHolder.onItemCleared()
         super.clearView(recyclerView, viewHolder)
     }
 
+    /**
+     * Метод для отрисовки дочернего элемента.
+     */
     override fun onChildDraw(
             canvas: Canvas,
             recyclerView: RecyclerView,
@@ -75,7 +104,9 @@ class ChatItemTouchHelperCallback(
         super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
-
+    /**
+     * Метод для отрисовки иконки.
+     */
     private fun drawIcon(
             canvas: Canvas,
             itemView: View,
@@ -97,6 +128,9 @@ class ChatItemTouchHelperCallback(
         icon.draw(canvas)
     }
 
+    /**
+     * Метод для отрисовки фона.
+     */
     private fun drawBackground(
             canvas: Canvas,
             itemView: View,
@@ -116,6 +150,9 @@ class ChatItemTouchHelperCallback(
     }
 }
 
+/**
+ * Интерфейс обработки выбора и отмены выбора элементов списка.
+ */
 interface ItemTouchViewHolder {
     fun onItemSelected()
     fun onItemCleared()

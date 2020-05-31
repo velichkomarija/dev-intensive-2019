@@ -1,10 +1,12 @@
 package ru.skillbranch.devintensive.models.data
 
-import com.bumptech.glide.util.Util
 import ru.skillbranch.devintensive.extensions.humanizeDiff
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
+/**
+ * Класс, описывающий User.
+ */
 data class User(
         val id: String,
         var firstName: String?,
@@ -15,8 +17,11 @@ data class User(
         var lastVisit: Date? = null,
         var isOnline: Boolean = false
 ) {
+    /**
+     * Метод, приводящий объект User к UserItem.
+     */
     fun toUserItem(): UserItem {
-        val lastActivity = when{
+        val lastActivity = when {
             lastVisit == null -> "Еще ни разу не заходил"
             isOnline -> "online"
             else -> "Последний раз был ${lastVisit!!.humanizeDiff()}"
@@ -33,22 +38,39 @@ data class User(
         )
     }
 
-    constructor(id: String, firstName: String?, lastName: String?) : this(
+    /**
+     * Конструктор класса.
+     */
+    constructor(id: String,
+                firstName: String?,
+                lastName: String?)
+            : this(
             id = id,
             firstName = firstName,
             lastName = lastName,
             avatar = null
     )
 
+    /**
+     * Инициализатор.
+     */
     init {
         println("It's alive o_O \n" +
                 "${if (lastName === "Doe") "His name is $firstName $lastName"
                 else "And his name is $firstName $lastName"}\n")
     }
 
-    companion object Factory{
-        private var lastId : Int = -1
-        fun makeUser(fullName : String?) : User {
+    /**
+     * Фабрика для создания объекта User.
+     */
+    companion object Factory {
+
+        private var lastId: Int = -1
+
+        /**
+         * Метод, создающий класс User.
+         */
+        fun makeUser(fullName: String?): User {
             lastId++
 
             val (firstName, lastName) = Utils.parseFullName(fullName)
@@ -57,6 +79,9 @@ data class User(
         }
     }
 
+    /**
+     * Класс, создающий объект User.
+     */
     class Builder {
         private var id: String = "0"
         private var firstName: String? = null
@@ -68,13 +93,13 @@ data class User(
         private var isOnline: Boolean = false
 
         fun id(id: String) = apply { this.id = id }
-        fun firstName(firstName: String) = apply {this.firstName = firstName}
-        fun lastName(lastName: String) = apply {this.lastName = lastName}
-        fun avatar(avatar: String) = apply {this.avatar = avatar}
-        fun rating(rating: Int) = apply {this.rating = rating}
-        fun respect(respect: Int) = apply {this.respect = respect}
-        fun lastVisit(lastVisit: Date) = apply {this.lastVisit = lastVisit}
-        fun isOnline(isOnline: Boolean) = apply {this.isOnline = isOnline}
+        fun firstName(firstName: String) = apply { this.firstName = firstName }
+        fun lastName(lastName: String) = apply { this.lastName = lastName }
+        fun avatar(avatar: String) = apply { this.avatar = avatar }
+        fun rating(rating: Int) = apply { this.rating = rating }
+        fun respect(respect: Int) = apply { this.respect = respect }
+        fun lastVisit(lastVisit: Date) = apply { this.lastVisit = lastVisit }
+        fun isOnline(isOnline: Boolean) = apply { this.isOnline = isOnline }
 
         fun build() = User(
                 id,

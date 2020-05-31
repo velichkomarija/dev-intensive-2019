@@ -5,7 +5,7 @@ import ru.skillbranch.devintensive.models.data.User
 import java.util.*
 
 /**
- * Created by Makweb on 24.06.2019.
+ * Сущность, описывающая текстовое сообщение.
  */
 class TextMessage(
         id: String,

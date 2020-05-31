@@ -1,6 +1,8 @@
 package ru.skillbranch.devintensive.models.data
 
-
+/**
+ * Класс, описывающий сущность User, для отображения в интерфейсе.
+ */
 data class UserItem (
     val id: String,
     val fullName: String,

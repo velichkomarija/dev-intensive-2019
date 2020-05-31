@@ -1,12 +1,18 @@
 package ru.skillbranch.devintensive.extensions
 
-
-fun String.truncate(newStringLength: Int = 16): String {
+/**
+ * Расширение для транслитерации.
+ */
+fun String.truncate(newStringLength: Int = 16):
+        String {
     val newString = this.trim()
     return if (newString.length <= newStringLength) newString
     else newString.substring(0, newStringLength).trim() + "..."
 }
 
+/**
+ * Метод, форматирующий строку HTML.
+ */
 fun String.stripHtml(): String {
     return this.replace("(<.*?>)|(&[^ а-я]{1,4}?;)".toRegex(), "")
             .replace(" {2,}".toRegex(), " ")

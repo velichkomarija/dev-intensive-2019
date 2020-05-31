@@ -7,7 +7,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.models.Profile
 
+/**
+ * Объект локальных настроек пользователя.
+ */
 object PreferencesRepository {
+
     private const val FIRST_NAME = "FIRST_NAME"
     private const val LAST_NAME = "LAST_NAME"
     private const val ABOUT = "ABOUT"
@@ -16,12 +20,14 @@ object PreferencesRepository {
     private const val RESPECT = "RESPECT"
     private const val APP_THEME = "RESPECT"
 
-
     private val prefs: SharedPreferences by lazy {
         val ctx = App.applicationContext();
         PreferenceManager.getDefaultSharedPreferences(ctx)
     }
 
+    /**
+     * Метод сохранения профиля.
+     */
     fun saveProfile(profile: Profile) {
         with(profile) {
             putValue(FIRST_NAME to firstName)
@@ -33,6 +39,9 @@ object PreferencesRepository {
         }
     }
 
+    /**
+     * Метод получения профиля.
+     */
     fun getProfile(): Profile = Profile(
             prefs.getString(FIRST_NAME, "")!!,
             prefs.getString(LAST_NAME, "")!!,
@@ -42,6 +51,9 @@ object PreferencesRepository {
             prefs.getInt(RESPECT, 0)
     )
 
+    /**
+     * Метод добавления значений в локальные настройки.
+     */
     private fun putValue(pair: Pair<String, Any>) = with(prefs.edit()) {
         val key = pair.first
         val value = pair.second
@@ -58,9 +70,15 @@ object PreferencesRepository {
         apply()
     }
 
+    /**
+     * Метод сохранения темы из локальных настроек.
+     */
     fun saveAppTheme(value: Int) {
         putValue(APP_THEME to value)
     }
 
+    /**
+     * Метод получения темы из локальных настроек.
+     */
     fun getAppTheme() : Int = prefs.getInt(APP_THEME, AppCompatDelegate.MODE_NIGHT_NO)
 }

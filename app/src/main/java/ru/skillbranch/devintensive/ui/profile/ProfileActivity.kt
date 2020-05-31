@@ -19,6 +19,9 @@ import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
+/**
+ * Класс, описваающий активность профиля.
+ */
 class ProfileActivity : AppCompatActivity() {
 
     companion object {
@@ -29,28 +32,54 @@ class ProfileActivity : AppCompatActivity() {
     var isEditMode = false;
     lateinit var viewFields: Map<String, TextView>
 
+    /**
+     * Реализация базового метода ЖЦ.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_constraint)
         initViews(savedInstanceState)
         initViewModel()
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    /**
+     * Метод, позволяющий восстановить пользовательские настройки при переворотах  и т. д.
+     */
+    override fun onSaveInstanceState(outState: Bundle,
+                                     outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
+    /**
+     * Инициализации ViewModel.
+     */
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        viewModel.getProfileData().observe(this, Observer { updateUI(it) })
-        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
-        viewModel.isRepoValid().observe(this, Observer { checkValidationError(it) })    }
+        viewModel.getProfileData()
+                .observe(this, Observer {
+                    updateUI(it)
+                })
+        viewModel.getTheme()
+                .observe(this, Observer {
+                    updateTheme(it)
+                })
+        viewModel.isRepoValid()
+                .observe(this, Observer {
+                    checkValidationError(it)
+                })    }
 
+    /**
+     * Изменение темы.
+     */
     private fun updateTheme(mode: Int) {
         delegate.setLocalNightMode(mode)
     }
 
+    /**
+     * Метод обновления представления.
+     */
     private fun updateUI(profile: Profile) {
         profile.toMap().also {
             for ((k, v) in viewFields) {
@@ -61,6 +90,9 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Метод для инициализации графических элементов.
+     */
     private fun initViews(savedInstanceState: Bundle?) {
 
         viewFields = mapOf(

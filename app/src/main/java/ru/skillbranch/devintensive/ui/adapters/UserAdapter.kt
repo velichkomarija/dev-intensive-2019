@@ -12,21 +12,41 @@ import kotlinx.android.synthetic.main.item_user_list.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 
-class UserAdapter(val listener: (UserItem) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+/**
+ * Адаптер для списка пользователей.
+ */
+class UserAdapter(val listener: (UserItem) -> Unit) :
+        RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     var items: List<UserItem> = listOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+    /**
+     * Реализация базовой функции адаптера.
+     */
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int):
+            UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val convertView = inflater.inflate(R.layout.item_user_list, parent, false)
         return UserViewHolder(convertView)
     }
 
+    /**
+     * Реализация базовой функции адаптера.
+     * Возвращает количество элементов.
+     */
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) = holder.bind(items[position], listener)
+    /**
+     * Реализация базовой функции адаптера.
+     */
+    override fun onBindViewHolder(holder: UserViewHolder,
+                                  position: Int) = holder.bind(items[position], listener)
 
-    fun updateData(data : List<UserItem>){
+    /**
+     * Метод обновления данных для адаптера.
+     */
+    fun updateData(data: List<UserItem>) {
 
         val diffCallback = object : DiffUtil.Callback() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int):
@@ -46,13 +66,22 @@ class UserAdapter(val listener: (UserItem) -> Unit) : RecyclerView.Adapter<UserA
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class UserViewHolder(convertView: View) : RecyclerView.ViewHolder(convertView),
+    /**
+     * Класс реализующий RecyclerView.ViewHolder.
+     */
+    inner class UserViewHolder(convertView: View) :
+            RecyclerView.ViewHolder(convertView),
             LayoutContainer {
 
         override val containerView: View?
             get() = itemView
 
+        /**
+         * Метод связывания элементов.
+         */
         fun bind(user: UserItem, listener: (UserItem) -> Unit) {
+
+            // загрузка аватара
             if (user.avatar != null) {
                 Glide.with(itemView)
                         .load(user.avatar)
@@ -63,11 +92,19 @@ class UserAdapter(val listener: (UserItem) -> Unit) : RecyclerView.Adapter<UserA
                 iv_avatar_user.setInitials(user.initials ?: "??")
             }
 
+            // индикатор онлайна
             sv_indicator.visibility = if (user.isOnline) View.VISIBLE else View.GONE
+            // полное имя
             tv_user_name.text = user.fullName
+            // дата последней активности
             tv_last_activity.text = user.lastActivity
+            // значок выбора элемента
             iv_selected.visibility = if (user.isSelected) View.VISIBLE else View.GONE
-            itemView.setOnClickListener{listener.invoke(user)}
+
+            // приявзяка обработчика нажатий
+            itemView.setOnClickListener {
+                listener.invoke(user)
+            }
         }
     }
 }

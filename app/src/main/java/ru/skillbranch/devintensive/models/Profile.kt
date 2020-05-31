@@ -2,6 +2,9 @@ package ru.skillbranch.devintensive.models
 
 import ru.skillbranch.devintensive.utils.Utils
 
+/**
+ * Дата класс, описывающий сущность профиля пользователя.
+ */
 data class Profile(
         val firstName: String,
         val lastName: String,

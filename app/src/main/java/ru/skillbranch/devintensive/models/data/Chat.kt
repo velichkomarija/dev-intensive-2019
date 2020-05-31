@@ -7,7 +7,9 @@ import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
-
+/**
+ * Класс, описывающий Chat.
+ */
 data class Chat(
         val id: String,
         val title: String,
@@ -16,16 +18,25 @@ data class Chat(
         var isArchived: Boolean = false
 ) {
 
+    /**
+     * Метод, расчитывающий число непрочитанных сообщений.
+     */
     fun unreadableMessageCount(): Int {
         return messages
                 .filter { !it.isReaded }
                 .size
     }
 
+    /**
+     * Метод, возвращающий дату последнего сообщения.
+     */
     fun lastMessageDate(): Date? {
         return messages.lastOrNull()?.date
     }
 
+    /**
+     * Короткое превью для последнего сообщения.
+     */
     fun lastMessageShort(): Pair<String?, String?> =
             when (val lastMessage = messages.lastOrNull()) {
                 is TextMessage -> lastMessage.text to "${lastMessage.from.firstName}"
@@ -33,8 +44,14 @@ data class Chat(
                 else -> "Сообщений еще нет" to ""
             }
 
+    /**
+     * Метод, проверяющий количество участников чата.
+     */
     private fun isSingle(): Boolean = members.size == 1
 
+    /**
+     * Метод, приводящий экземпляр Chat к ChatItem.
+     */
     fun toChatItem(): ChatItem {
         return if (isSingle()) {
             val user = members.first()
@@ -65,6 +82,9 @@ data class Chat(
     }
 }
 
+/**
+ * Перечисление для типов чата.
+ */
 enum class ChatType {
     SINGLE,
     GROUP,
